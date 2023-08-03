@@ -5,6 +5,7 @@ bool Model::Initialize()
 {
     m_board = DoPuzzleInitializing();
     m_messageSystem.Publish(m_board);
+    std::cout << "Manhattan " << m_board.GetManhattanHeuristicValue() << std::endl;
 }
 
 bool Model::IsReady() const

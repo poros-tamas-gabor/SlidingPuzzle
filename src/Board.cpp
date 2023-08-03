@@ -65,6 +65,27 @@ bool Board::IsValid() const
     }
     return true;
 }
+
+int Board::GetManhattanHeuristicValue() const
+{
+    int sum = 0;
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            int num = m_rows.at(i).at(j);
+            if(num > 0)
+            {
+                int propRow = (num - 1) / 3;
+                int propCol = (num - 1) % 3;
+                sum += abs(i - propRow) + abs(j - propCol);
+
+            }
+        }
+    }
+    return sum;
+}
+
 void Board::DoSliding(Direction d)
 {
     if(!IsValidSlidingDirection(d))

@@ -21,7 +21,7 @@ public:
 
     bool IsEndState() const;
     bool IsValid() const;
-
+    int  GetManhattanHeuristicValue() const;
     void DoSliding(Direction d);
 
     const std::array<row, 3>& GetBoard() const;
