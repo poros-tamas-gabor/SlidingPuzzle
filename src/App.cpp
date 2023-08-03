@@ -2,9 +2,11 @@
 #include <iostream>
 #include "Model.h"
 #include "View.h"
+#include <cstdlib>
 
 bool App::Initialize()
 {
+    srand((unsigned) time(NULL));
     m_model = std::make_shared<Model>();
     if(m_model == nullptr)
         return false;
@@ -28,8 +30,8 @@ void App::Run()
 
     while (!m_model->IsReady())
     {
-        m_model->NextStep();
-        m_view->RenderFrame();
+        //m_model->NextStep();
+        //m_view->RenderFrame();
         break;
     }
     

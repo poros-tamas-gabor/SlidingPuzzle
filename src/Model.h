@@ -16,6 +16,8 @@ public:
     virtual void NextStep();
     virtual bool AddSubscriber(IModelSubscriberPtr s);
     virtual bool RemoveSubscriber(IModelSubscriberPtr s);
+private:
+    Board DoPuzzleInitializing();
 };
 
 #endif

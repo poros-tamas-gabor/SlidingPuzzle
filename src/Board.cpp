@@ -17,6 +17,7 @@ Board::Board(const std::array<int, 9>& array)
     }
 }
 const std::array<row, 3>& Board::GetBoard() const {return m_rows;}
+const std::vector<Direction>& Board::GetValidDirection() const {return m_validDirection;}
 
 bool Board::IsEndState() const
 {

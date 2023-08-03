@@ -21,9 +21,11 @@ public:
 
     bool IsEndState() const;
     bool IsValid() const;
+
     void DoSliding(Direction d);
 
     const std::array<row, 3>& GetBoard() const;
+    const std::vector<Direction>& GetValidDirection() const;
 
 private:
     void CollectValidSlidingDirection();
