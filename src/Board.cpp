@@ -2,6 +2,7 @@
 #include "SPException.h"
 #include <iostream>
 
+// Constructor to create the end state board.
 Board::Board() : m_rows({ row{1,2,3}, row{4,5,6}, row{7,8,0}}), m_ZeroCoord({2,2})
 {
     CollectValidSlidingDirection();
@@ -10,6 +11,7 @@ Board::Board() : m_rows({ row{1,2,3}, row{4,5,6}, row{7,8,0}}), m_ZeroCoord({2,2
 const std::array<row, 3>& Board::GetBoard() const {return m_rows;}
 const std::vector<Direction>& Board::GetValidDirection() const {return m_validDirection;}
 
+// Check if the current board represents the end state of the sliding puzzle.
 bool Board::IsEndState() const
 {
     if( !(m_ZeroCoord.first == 2 && m_ZeroCoord.second == 2))
@@ -30,6 +32,7 @@ bool Board::IsEndState() const
     }
     return true;
 }
+
 void Board::Print() const
 {
     std::cout << "-------------" << std::endl;
@@ -49,6 +52,13 @@ void Board::Print() const
     std::cout << "-------------" << std::endl;
 }
 
+// Check if the current board is a valid state of the sliding puzzle.
+// A valid board should satisfy the following conditions:
+// 1. Each number from 1 to 8 appears exactly once in the board.
+// 2. The zero (empty) field should have a unique coordinate within the board.
+//    If it does not have a unique coordinate or if it appears more than once,
+//    the board is considered invalid.
+// Returns true if the board is valid, otherwise returns false.
 bool Board::IsValid() const
 {
     std::array<int, 9> counter;
@@ -75,6 +85,13 @@ bool Board::IsValid() const
     return true;
 }
 
+// Calculate the Manhattan Heuristic Value for the current board configuration.
+// The Manhattan Heuristic Value represents the sum of the Manhattan distances of each number
+// in the board from its correct position in the solved state.
+// The Manhattan distance of a number is the sum of the horizontal and vertical distances
+// between its current position and its correct position.
+// The calculation is skipped for the number 0 (zero) since it represents the empty field.
+// Returns the total Manhattan Heuristic Value for the current board configuration.
 int Board::GetManhattanHeuristicValue() const
 {
     int sum = 0;
@@ -88,13 +105,14 @@ int Board::GetManhattanHeuristicValue() const
                 int propRow = (num - 1) / 3;
                 int propCol = (num - 1) % 3;
                 sum += abs(i - propRow) + abs(j - propCol);
-
             }
         }
     }
     return sum;
 }
 
+// Perform a sliding move in the given direction on the board.
+// The sliding move is done by swapping the position of the zero (empty) field with the adjacent element in the specified direction.
 void Board::DoSliding(Direction d)
 {
     if(!IsValidSlidingDirection(d))
@@ -104,18 +122,19 @@ void Board::DoSliding(Direction d)
 
     coordinate coord = DirectionToCoordinate(d);
     
-    //Copy the number to the place of zero
+    // Copy the number to the place of zero
     m_rows.at(m_ZeroCoord.first).at(m_ZeroCoord.second) = m_rows.at(m_ZeroCoord.first + coord.first).at(m_ZeroCoord.second + coord.second);
 
-    //Set the new zero coordinate
+    // Set the new zero coordinate
     m_ZeroCoord = coordinate({m_ZeroCoord.first + coord.first, m_ZeroCoord.second + coord.second});
 
-    //Set the zero
+    // Set the zero
     m_rows.at(m_ZeroCoord.first).at(m_ZeroCoord.second) = 0;
 
     CollectValidSlidingDirection();
 }
 
+// Collect the valid sliding directions for the empty field based on its position.
 void Board::CollectValidSlidingDirection()
 {
     m_validDirection.clear();
@@ -136,6 +155,7 @@ void Board::CollectValidSlidingDirection()
         m_validDirection.push_back(RIGHT);
     }
 }
+
 bool Board::IsValidSlidingDirection(Direction d)
 {
     return std::find(m_validDirection.begin(), m_validDirection.end(), d) != m_validDirection.end();

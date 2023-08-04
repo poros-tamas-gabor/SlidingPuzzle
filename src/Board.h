@@ -12,6 +12,19 @@ coordinate  DirectionToCoordinate(Direction d);
 Direction   InvertDirection(Direction d);
 std::string GetDirectionName(Direction d);
 
+
+///////////////////////////////////////////////////////////////////////////////
+// Board.h
+// ========
+// The Board class represents the arrangement of numbers in the sliding puzzle.
+// The only way to change a board element is through the DoSliding method, which slides the zero (empty) field in a given direction.
+//
+// The evaluation function of the A* algorithm uses the path cost of the Node and the Manhattan Heuristic Value.
+//
+// AUTHOR: TAMAS GABOR POROS
+// CREATED: 2023-08-04
+///////////////////////////////////////////////////////////////////////////////
+
 class Board
 {
 private:
@@ -34,8 +47,6 @@ public:
 private:
     void CollectValidSlidingDirection();
     bool IsValidSlidingDirection(Direction d);
-    
-
 };
 
 

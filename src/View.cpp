@@ -17,7 +17,7 @@ void View::Print() const
         else
         {
             std::cout << "--------------------------------" << std::endl;
-            std::cout << "8 pieces sliding puzzle solution" << std::endl;
+            std::cout << "8-pieces sliding puzzle solution" << std::endl;
             std::cout << "--------------------------------" << std::endl << std::endl;
         }
         m_currentNode->Print();
@@ -27,4 +27,7 @@ void View::Update(NodePtr b)
 {
     m_currentNode = b;
 }
-bool View::Initialize(){return true;}
+bool View::Initialize()
+{
+    return true;
+}
