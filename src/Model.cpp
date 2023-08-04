@@ -3,20 +3,25 @@
 
 bool Model::Initialize()
 {
-    m_board = DoPuzzleInitializing();
-    m_messageSystem.Publish(m_board);
-    std::cout << "Manhattan " << m_board.GetManhattanHeuristicValue() << std::endl;
+    Board start = DoPuzzleInitializing();
+    m_solver.Initialize(start);
+    m_solver.Run();
+  
+    m_solutionPath = m_solver.GetSolutionPath();
+
+    return !m_solutionPath.empty();
 }
 
-bool Model::IsReady() const
+bool Model::IsEnded() const
 {
-    return m_board.IsEndState();
+    return m_solutionPath.empty();
 }
 
 void Model::NextStep() 
 {
-
-    m_messageSystem.Publish(m_board);
+    NodePtr current = m_solutionPath.front();
+    m_messageSystem.Publish(current);
+    m_solutionPath.pop_front();
 }
 
 
@@ -32,7 +37,7 @@ bool Model::RemoveSubscriber(IModelSubscriberPtr s)
 Board Model::DoPuzzleInitializing()
 {
     Board board;
-    int numOfRound = rand() % 100 + 1;
+    int numOfRound = rand() % 10 + 1;
     std::cout <<  "numOfRound = "<< numOfRound << std::endl;
 
     for(int i = 0; i < numOfRound; i++)

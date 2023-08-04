@@ -6,7 +6,11 @@
 
 typedef std::array<int, 3> row;
 typedef std::pair<int, int> coordinate;
-enum    Direction{LEFT, UP, RIGHT, DOWN};
+enum    Direction{LEFT, UP, RIGHT, DOWN, INVALID};
+
+coordinate  DirectionToCoordinate(Direction d);
+Direction   InvertDirection(Direction d);
+std::string GetDirectionName(Direction d);
 
 class Board
 {
@@ -17,8 +21,8 @@ private:
 
 public:
     Board();
-    Board(const std::array<int, 9>& array);
 
+    void Print() const;
     bool IsEndState() const;
     bool IsValid() const;
     int  GetManhattanHeuristicValue() const;
@@ -30,7 +34,7 @@ public:
 private:
     void CollectValidSlidingDirection();
     bool IsValidSlidingDirection(Direction d);
-    static coordinate DirectionToCoordinate(Direction d);
+    
 
 };
 

@@ -5,34 +5,26 @@ void View::RenderFrame() const
 {
     Print();
 }
-
 void View::Print() const
 {
-    const std::array<row,3>& rows = _currentBoard.GetBoard();
-
-    std::cout << "------------" << std::endl;
-
-    for(row r : rows)
+    if(m_currentNode)
     {
-        std::cout << "| ";
-        for(int i : r)
+        if(m_currentNode->GetParentNode() != nullptr)
         {
-            if(i != 0)
-            {
-                std::cout << i << " |";
-            }
-            else
-            {
-                std::cout << "  |";
-            }
+            std::cout << "      |      " << std::endl;
+            std::cout << "      V      " << std::endl;
         }
-        std::cout << std::endl;
+        else
+        {
+            std::cout << "--------------------------------" << std::endl;
+            std::cout << "8 pieces sliding puzzle solution" << std::endl;
+            std::cout << "--------------------------------" << std::endl << std::endl;
+        }
+        m_currentNode->Print();
     }
-    std::cout << "------------" << std::endl;
-
 }
-void View::Update(const Board& b)
+void View::Update(NodePtr b)
 {
-    _currentBoard = b;
+    m_currentNode = b;
 }
-void View::Initialize(){}
+bool View::Initialize(){return true;}

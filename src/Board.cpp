@@ -6,16 +6,7 @@ Board::Board() : m_rows({ row{1,2,3}, row{4,5,6}, row{7,8,0}}), m_ZeroCoord({2,2
 {
     CollectValidSlidingDirection();
 }
-Board::Board(const std::array<int, 9>& array)
-{
-    for(int i = 0; i < 9; i++)
-    {
-        int row = i / 3;
-        int col = i % 3;
 
-        m_rows.at(row).at(col) = array.at(i);
-    }
-}
 const std::array<row, 3>& Board::GetBoard() const {return m_rows;}
 const std::vector<Direction>& Board::GetValidDirection() const {return m_validDirection;}
 
@@ -38,6 +29,24 @@ bool Board::IsEndState() const
         }
     }
     return true;
+}
+void Board::Print() const
+{
+    std::cout << "-------------" << std::endl;
+
+    for(const row& r : m_rows)
+    {
+        std::cout << "|";
+        for(int i : r)
+        {
+            if(i != 0)
+                std::cout << " " << i << " |";
+            else
+                std::cout << " "<< " " << " |";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "-------------" << std::endl;
 }
 
 bool Board::IsValid() const
@@ -132,7 +141,7 @@ bool Board::IsValidSlidingDirection(Direction d)
     return std::find(m_validDirection.begin(), m_validDirection.end(), d) != m_validDirection.end();
 }
 
-coordinate Board::DirectionToCoordinate(Direction d)
+coordinate DirectionToCoordinate(Direction d)
 {
     switch (d)
     {
@@ -145,6 +154,40 @@ coordinate Board::DirectionToCoordinate(Direction d)
     case DOWN:
         return coordinate(1,0);
     default:
-        return coordinate(0,0)
-;    }
+        return coordinate(0,0);    
+    }
+}
+
+Direction InvertDirection(Direction d)
+{
+    switch (d)
+    {
+    case LEFT:
+        return RIGHT;
+    case UP:
+        return DOWN;
+    case RIGHT:
+        return LEFT;
+    case DOWN:
+        return UP;
+    default:
+        return INVALID;
+    }
+}
+
+std::string GetDirectionName(Direction d)
+{
+    switch (d)
+    {
+    case LEFT:
+        return "LEFT";
+    case UP:
+        return "UP";
+    case RIGHT:
+        return "RIGHT";
+    case DOWN:
+        return "DOWN";
+    default:
+        return "INVALID";
+    }
 }

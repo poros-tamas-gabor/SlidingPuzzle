@@ -8,7 +8,7 @@ class ModelMessageSystem
 private:
     std::vector<IModelSubscriberPtr> m_subscribers;
 public:
-    void Publish(const Board& board) const;
+    void Publish(NodePtr node) const;
 	bool Subscribe(IModelSubscriberPtr view);
 	bool Unsubscribe(IModelSubscriberPtr view);    
 };

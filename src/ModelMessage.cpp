@@ -1,10 +1,10 @@
 #include "ModelMessageSystem.h"
 
-void ModelMessageSystem::Publish(const Board& b) const
+void ModelMessageSystem::Publish(NodePtr node) const
 {
     for(IModelSubscriberPtr subscriber : m_subscribers)
     {
-        subscriber->Update(b);
+        subscriber->Update(node);
     }
 }
 bool ModelMessageSystem::Subscribe(IModelSubscriberPtr subscriber)

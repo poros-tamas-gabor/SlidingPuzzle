@@ -1,8 +1,11 @@
-# Makefile for C++ program 
+# Makefile for 8 pieces sliding puzzle C++ program 
 
 # Compiler and flags 
 CXX := g++
 CXXFLAGS = -std=c++11 -Wall -O2 
+# Usage
+# make - compile the source code and create the executable file
+# make clean - delete the object files
 
 TARGET := sliding_puzzle
 SRCS := $(wildcard *.cpp)
@@ -21,5 +24,5 @@ $(TARGET): $(OBJS)
 
 clean:
 	@echo "Cleaning up..."
-	rm -rvf *.o $(BINS)
+	rm -rvf *.o $(OBJS) $(TARGET)
 
