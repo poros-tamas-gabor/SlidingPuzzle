@@ -97,10 +97,7 @@ NodePtr AStarPuzzleSolver::GetMinCostNode()
 bool AStarPuzzleSolver::IsInSearchGraph(NodePtr node)
 {
     NodeEQ eq(node);
-    bool l = std::find_if(m_searchGraph.begin(), m_searchGraph.end(), eq) != m_searchGraph.end();
-
-    std::cout << "IsInSearchGraph " << l << std::endl;
-    return l;
+    return std::find_if(m_searchGraph.begin(), m_searchGraph.end(), eq) != m_searchGraph.end();
 }
 
 bool AStarPuzzleSolver::FindAShorterPath(NodePtr node)
@@ -110,6 +107,6 @@ bool AStarPuzzleSolver::FindAShorterPath(NodePtr node)
     
     NodeEQ eq(node);
     auto it = std::find_if(m_searchGraph.begin(), m_searchGraph.end(), eq);
-    
+
     return it->get()->GetPathCost() > node->GetPathCost();
 }

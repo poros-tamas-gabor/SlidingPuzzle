@@ -15,3 +15,17 @@ TEST_CASE("Test_v2", "AStarPuzzleSolver")
     solver.Run();
     REQUIRE(solver.GetSolutionPath().size() == 1);
 }
+
+TEST_CASE("Test_v3", "AStarPuzzleSolver")
+{
+    AStarPuzzleSolver solver;
+    Board b;
+
+    b.DoSliding(LEFT);
+    b.DoSliding(UP);
+    b.DoSliding(LEFT);
+
+    solver.Initialize(b);
+    solver.Run();
+    REQUIRE(solver.GetSolutionPath().size() == 4);
+}
