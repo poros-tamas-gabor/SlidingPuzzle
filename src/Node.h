@@ -48,4 +48,16 @@ public:
     }
 };
 
+class NodeEQ
+{
+private:
+    NodePtr node;
+public:
+    NodeEQ(NodePtr node) : node(node) {}
+    bool operator()(NodePtr other)
+    {
+        return node->GetBoard() == other->GetBoard();
+    }
+};
+
 #endif

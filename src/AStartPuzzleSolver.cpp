@@ -40,7 +40,9 @@ void AStarPuzzleSolver::Run()
             board.DoSliding(d);
 
             NodePtr child = std::make_shared<Node>(board, currentNode->GetPathCost() + 1, currentNode, d);
-            m_openNodes.push_back(child);
+
+            if (!IsInSearchGraph(child) || FindAShorterPath(child))
+                m_openNodes.push_back(child);
         }
 
         //  Put the extended current node into the searchGraph.
@@ -89,4 +91,25 @@ NodePtr AStarPuzzleSolver::GetMinCostNode()
     m_openNodes.erase(m_openNodes.begin() + minIndex);
 
     return minNode;
+}
+
+
+bool AStarPuzzleSolver::IsInSearchGraph(NodePtr node)
+{
+    NodeEQ eq(node);
+    bool l = std::find_if(m_searchGraph.begin(), m_searchGraph.end(), eq) != m_searchGraph.end();
+
+    std::cout << "IsInSearchGraph " << l << std::endl;
+    return l;
+}
+
+bool AStarPuzzleSolver::FindAShorterPath(NodePtr node)
+{
+    if(!IsInSearchGraph(node))
+        return false;
+    
+    NodeEQ eq(node);
+    auto it = std::find_if(m_searchGraph.begin(), m_searchGraph.end(), eq);
+    
+    return it->get()->GetPathCost() > node->GetPathCost();
 }

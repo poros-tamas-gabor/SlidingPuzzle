@@ -37,6 +37,8 @@ public:
 private:
     NodePtr GetMinCostNode();
     void    CreateSolutionPath(NodePtr endNode);
+    bool    IsInSearchGraph(NodePtr node);
+    bool    FindAShorterPath(NodePtr node);
 };
 
 #endif
