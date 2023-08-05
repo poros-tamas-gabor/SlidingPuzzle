@@ -9,6 +9,41 @@ TEST_CASE("Constructor", "Board")
     REQUIRE(b.GetManhattanHeuristicValue() == 0);
 }
 
+TEST_CASE("operator==Test", "Board")
+{
+    Board b1, b2;
+
+    b1.DoSliding(UP);
+    REQUIRE_FALSE(b1 == b2);
+
+    b2.DoSliding(UP);
+    REQUIRE(b1 == b2);
+
+    b1.DoSliding(UP);
+    REQUIRE_FALSE(b1 == b2);
+
+    b2.DoSliding(UP);
+    REQUIRE(b1 == b2);
+
+    b1.DoSliding(LEFT);
+    REQUIRE_FALSE(b1 == b2);
+
+    b2.DoSliding(LEFT);
+    REQUIRE(b1 == b2);
+
+    b1.DoSliding(DOWN);
+    REQUIRE_FALSE(b1 == b2);
+
+    b2.DoSliding(DOWN);
+    REQUIRE(b1 == b2);
+
+    b1.DoSliding(RIGHT);
+    REQUIRE_FALSE(b1 == b2);
+
+    b2.DoSliding(RIGHT);
+    REQUIRE(b1 == b2);
+}
+
 TEST_CASE("DoSliding_v1", "Board")
 {
     Board b;

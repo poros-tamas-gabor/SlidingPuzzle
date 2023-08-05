@@ -85,6 +85,21 @@ bool Board::IsValid() const
     return true;
 }
 
+bool Board::operator==(const Board& other) const
+{
+    if( !(m_ZeroCoord.first == other.m_ZeroCoord.first && m_ZeroCoord.second == other.m_ZeroCoord.second))
+        return false;
+    for (size_t i = 0; i < 3; i++)
+    {
+        for (size_t j = 0; j < 3; j++)
+        {
+            if(m_rows.at(i).at(j) != other.m_rows.at(i).at(j))
+                return false;
+        }  
+    }
+    return true;
+}
+
 // Calculate the Manhattan Heuristic Value for the current board configuration.
 // The Manhattan Heuristic Value represents the sum of the Manhattan distances of each number
 // in the board from its correct position in the solved state.
