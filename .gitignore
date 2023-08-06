@@ -2,3 +2,4 @@ src/*.o
 sliding_puzzle
 test/*.o
 test/test
+.vscode/
